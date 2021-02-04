@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTodoRequest;
+use App\Http\Requests\UpdateTodoRequest;
 use App\Models\Todo;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -43,8 +45,9 @@ class TodoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreTodoRequest $request)
     {
+        $request->validated();
         $todo = Todo::create(
             [
                 'name' => $request->name,
@@ -85,8 +88,9 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return Response
      */
-    public function update(Request $request, Todo $todo)
+    public function update(UpdateTodoRequest $request, Todo $todo)
     {
+        $request->validated();
         $todo->update(
             [
                 'name' => $request->name,
