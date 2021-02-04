@@ -11,10 +11,12 @@
                     <table class="table table-responsive">
                         <thead>
                         <tr>
-                            <td >Task</td>
+                            <td >Todo</td>
                             <td >Completed</td>
                             <td >Created</td>
-                            <td >Edit Task</td>
+                            <td >Show</td>
+                            <td >Edit</td>
+                            <td >Delete</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -23,7 +25,15 @@
                             <td>{{$todo['name']}}</td>
                             <td >{{$todo['is_completed']}}</td>
                             <td>{{$todo['created_at']}}</td>
-                            <td><a href="{{route('todo.create')}}" >show</a></td>
+                            <td><a href="{{route('todo.show', $todo['id'])}}" >Show</a></td>
+                            <td><a href="{{route('todo.edit', $todo['id'])}}" >Edit</a></td>
+                            <td><form action="{{ route('todo.destroy', $todo->id) }}" method="POST" id="todo-destroy-{{ $todo->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        Delete
+                                    </button>
+                                </form></td>
                         </tr>
                         @endforeach
                         </tbody>

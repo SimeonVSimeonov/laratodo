@@ -63,7 +63,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        return view('todo.show', ['todo' => $todo]);
     }
 
     /**
@@ -74,7 +74,7 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        //
+        return view('todo.edit', ['todo' => $todo]);
     }
 
     /**
@@ -86,7 +86,14 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        $todo->update(
+            [
+                'name' => $request->name,
+                'is_completed' => $request->is_completed
+            ]
+        );
+
+        return redirect('home');
     }
 
     /**
@@ -97,6 +104,7 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+        return redirect('home');
     }
 }
