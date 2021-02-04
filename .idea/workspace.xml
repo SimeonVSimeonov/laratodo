@@ -131,7 +131,7 @@
     <property name="DatabaseDriversLRU" value="mariadb" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/artisan" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/task" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -140,6 +140,11 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Simeonovi\Desktop\New folder (2)\todo-web\resources\views\task" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="run" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/artisan" scriptParameters="serve --port=8002">
@@ -160,7 +165,7 @@
       <option name="presentableId" value="Default" />
       <updated>1612453323960</updated>
       <workItem from="1612453325124" duration="467000" />
-      <workItem from="1612453824296" duration="11307000" />
+      <workItem from="1612453824296" duration="18904000" />
     </task>
     <servers />
   </component>

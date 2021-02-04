@@ -14,7 +14,7 @@
                             <td >Todo</td>
                             <td >Completed</td>
                             <td >Created</td>
-                            <td >Show</td>
+                            <td >Show Tasks</td>
                             <td >Edit</td>
                             <td >Delete</td>
                         </tr>
@@ -25,7 +25,7 @@
                             <td>{{$todo['name']}}</td>
                             <td >{{$todo['is_completed']}}</td>
                             <td>{{$todo['created_at']}}</td>
-                            <td><a href="{{route('todo.show', $todo['id'])}}" >Show</a></td>
+                            <td><a href="{{route('todo.show', $todo['id'])}}" >Tasks</a></td>
                             <td><a href="{{route('todo.edit', $todo['id'])}}" >Edit</a></td>
                             <td><form action="{{ route('todo.destroy', $todo->id) }}" method="POST" id="todo-destroy-{{ $todo->id }}">
                                     @csrf
@@ -39,7 +39,7 @@
                         </tbody>
                     </table>
                     <div class='sm-12 text-center'>
-                        <a href="{{route('todo.create')}}" >Add new</a>
+                        <a href="{{route('todo.create')}}" >Add Todo</a>
                     </div>
                 </div>
             </div>

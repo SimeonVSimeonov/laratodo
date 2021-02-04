@@ -19,6 +19,7 @@ class Task extends Model
      * @var string[]
      */
     protected $fillable = [
+        'todo_id',
         'name',
         'deadline',
         'is_disabled',

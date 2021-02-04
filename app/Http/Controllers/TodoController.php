@@ -63,7 +63,8 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        return view('todo.show', ['todo' => $todo]);
+        $tasks = $todo->tasks()->get();
+        return view('todo.show', ['todo' => $todo, 'tasks' => $tasks]);
     }
 
     /**

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="card-body">
-                <form method="POST" action="{{ route('todo.update', $todo->id) }}">
+                <form method="POST" action="{{ route('task.update', $task->id) }}">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
@@ -12,7 +12,7 @@
 
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                   name="name" value="{{ $todo->name }}" required autocomplete="name" autofocus>
+                                   name="name" value="{{ $task->name }}" required autocomplete="name" autofocus>
 
                             @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -26,7 +26,7 @@
 
                     <div class="col-md-6">
                         <select name="is_completed" class="col-md-6 form-control">
-                            @if($todo->is_completed)
+                            @if($task->is_completed)
                                 <option selected value="1">Done</option>
                                 <option value="0">In Progress</option>
                             @else
@@ -42,10 +42,18 @@
                         @enderror
                     </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Deadline') }}</label>
+                        <div class="col-md-6">
+                            <input type="date" class="form-control @error('name') is-invalid @enderror"
+                                   id="deadline" name="deadline">
+                        </div>
+                    </div>
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary">
-                                Save
+                                Update
                             </button>
                         </div>
                     </div>

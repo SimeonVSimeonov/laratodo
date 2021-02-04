@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +30,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('task.create');
     }
 
     /**
@@ -35,7 +41,15 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $task = Task::create(
+            [
+                'name' => $request->name,
+                'todo_id' => $request->todo_id
+            ]
+        );
+
+        return redirect()->route('todo.show', ['todo' => $request->todo_id]);
     }
 
     /**
@@ -57,7 +71,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        return view('task.edit', ['task' => $task]);
     }
 
     /**
@@ -69,7 +83,15 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $task->update(
+            [
+                'name' => $request->name,
+                'is_completed' => $request->is_completed,
+                'deadline' => $request->deadline
+            ]
+        );
+
+        return redirect()->route('todo.show', ['todo' => $task->todo_id]);
     }
 
     /**
@@ -80,6 +102,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return redirect()->route('todo.show', ['todo' => $task->todo_id]);
     }
 }
