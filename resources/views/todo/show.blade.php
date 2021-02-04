@@ -24,7 +24,11 @@
                                 @foreach ($tasks as $task)
                                     <tr>
                                         <td>{{$task['name']}}</td>
-                                        <td >{{$task['is_completed']}}</td>
+                                        @if($task['is_completed'])
+                                            <td >YES</td>
+                                        @else
+                                            <td >NO</td>
+                                        @endif
                                         <td>{{$task['created_at']}}</td>
                                         <td>{{$task['deadline']}}</td>
                                         <td><a href="{{route('task.edit', $task['id'])}}" >Edit</a></td>

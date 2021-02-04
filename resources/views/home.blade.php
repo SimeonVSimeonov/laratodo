@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card text-center">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __('Dashboard All Todo') }}</div>
                 <div class="row justify-content-center">
                 <div class="col-auto">
                     <table class="table table-responsive">
@@ -23,7 +23,11 @@
                         @foreach ($todos as $todo)
                         <tr>
                             <td>{{$todo['name']}}</td>
-                            <td >{{$todo['is_completed']}}</td>
+                            @if($todo['is_completed'])
+                            <td >YES</td>
+                            @else
+                            <td >NO</td>
+                            @endif
                             <td>{{$todo['created_at']}}</td>
                             <td><a href="{{route('todo.show', $todo['id'])}}" >Tasks</a></td>
                             <td><a href="{{route('todo.edit', $todo['id'])}}" >Edit</a></td>
