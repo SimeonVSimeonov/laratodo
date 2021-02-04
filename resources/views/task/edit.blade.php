@@ -44,10 +44,10 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Deadline') }}</label>
+                        <label for="deadline" class="col-md-4 col-form-label text-md-right">{{ __('Deadline') }}</label>
                         <div class="col-md-6">
                             <input type="date" class="form-control @error('name') is-invalid @enderror"
-                                   id="deadline" name="deadline">
+                                   id="deadline" name="deadline" value="{{$task->deadline->format('Y-m-d')}}">
                         </div>
                     </div>
                     <div class="form-group row mb-0">
