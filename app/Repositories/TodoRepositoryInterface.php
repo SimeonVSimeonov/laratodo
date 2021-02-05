@@ -15,4 +15,6 @@ interface TodoRepositoryInterface
     public function createTodo(StoreTodoRequest $request);
 
     public function updateTodo(UpdateTodoRequest $request, Todo $todo);
+
+    public function updateTodoStatus(Todo $todo);
 }

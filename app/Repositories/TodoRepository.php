@@ -38,4 +38,11 @@ class TodoRepository implements TodoRepositoryInterface
             ]
         );
     }
+
+    public function updateTodoStatus(Todo $todo)
+    {
+        return $todo->update([
+            'is_completed' => true
+        ]);
+    }
 }
