@@ -46,17 +46,19 @@ class TodoService implements TodoServiceInterface
            ->get();
 
        foreach ($all_todo_tasks as $todo_task){
-           foreach($todo_task->tasks()->get() as $task){
-               $end = $task->deadline->format('Y-m-d H:i:s');
-               $date_now = new DateTime("now", new DateTimeZone('Europe/Sofia'));
-               $format_now = $date_now->format('Y-m-d H:i:s');
+           if($todo_task->tasks()->get()->count() !== 0){
+               foreach($todo_task->tasks()->get() as $task){
+                   $end = $task->deadline->format('Y-m-d H:i:s');
+                   $date_now = new DateTime("now", new DateTimeZone('Europe/Sofia'));
+                   $format_now = $date_now->format('Y-m-d H:i:s');
 
-               if ($end < $format_now){
-                    $this->taskRepository->updateTaskStatus($task);
+                   if ($end < $format_now){
+                       $this->taskRepository->updateTaskStatus($task);
+                   }
                }
-           }
-           if($todo_task->tasks()->where('is_completed', '=', false)->get()->count() === 0) {
-               $this->todoRepository->updateTodoStatus($todo_task);
+               if($todo_task->tasks()->where('is_completed', '=', false)->get()->count() === 0) {
+                   $this->todoRepository->updateTodoStatus($todo_task);
+               }
            }
        }
     }
