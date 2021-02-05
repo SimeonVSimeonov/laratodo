@@ -28,4 +28,6 @@ interface TaskRepositoryInterface
      * @return mixed
      */
     public function updateTask(UpdateTaskRequest $request, Task $task);
+
+    public function updateTaskStatus(Task $task);
 }

@@ -43,4 +43,11 @@ class TaskRepository implements TaskRepositoryInterface
             ]
         );
     }
+
+    public function updateTaskStatus(Task $task)
+    {
+        return $task->update([
+            'is_disabled' => true
+        ]);
+    }
 }
