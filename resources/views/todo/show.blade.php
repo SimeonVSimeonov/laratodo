@@ -22,6 +22,16 @@
                                 <tbody>
                                 @isset($tasks)
                                 @foreach ($tasks as $task)
+                                    @if($task->is_disabled)
+                                        <tr>
+                                            <td style="color: red">{{$task['name']}}</td>
+                                            <td style="color: red">NO</td>
+                                            <td style="color: red">{{$task['created_at']}}</td>
+                                            <td style="color: red">{{$task['deadline']}}</td>
+                                            <td style="color: red">Overdue</td>
+                                            <td style="color: red">Overdue</td>
+                                        </tr>
+                                    @else
                                     <tr>
                                         <td>{{$task['name']}}</td>
                                         @if($task['is_completed'])
@@ -40,6 +50,7 @@
                                                 </button>
                                             </form></td>
                                     </tr>
+                                    @endif
                                 @endforeach
                                 @endisset
                                 </tbody>
