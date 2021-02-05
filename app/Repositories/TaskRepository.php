@@ -16,13 +16,18 @@ class TaskRepository implements TaskRepositoryInterface
         return Task::where('todo_id', '=', $id)->get();
     }
 
+    /**
+     * @param StoreTaskRequest $request
+     * @return mixed
+     */
     public function createTask(StoreTaskRequest $request)
     {
         $request->validated();
         return Task::create(
             [
                 'name' => $request->name,
-                'todo_id' => $request->todo_id
+                'todo_id' => $request->todo_id,
+                'deadline' => $request->deadline
             ]
         );
     }
@@ -44,7 +49,11 @@ class TaskRepository implements TaskRepositoryInterface
         );
     }
 
-    public function updateTaskStatus(Task $task)
+    /**
+     * @param Task $task
+     * @return bool|mixed
+     */
+    public function updateTaskStatus(Task $task): bool
     {
         return $task->update([
             'is_disabled' => true
