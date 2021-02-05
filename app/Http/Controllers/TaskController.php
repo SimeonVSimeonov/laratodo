@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
+use App\Repositories\TaskRepository;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -14,9 +15,19 @@ use Illuminate\Http\Response;
 
 class TaskController extends Controller
 {
-    public function __construct()
+    /**
+     * @var TaskRepository
+     */
+    private $taskRepository;
+
+    /**
+     * TaskController constructor.
+     * @param TaskRepository $taskRepository
+     */
+    public function __construct(TaskRepository $taskRepository)
     {
         $this->middleware('auth');
+        $this->taskRepository = $taskRepository;
     }
 
 
@@ -38,14 +49,7 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        $request->validated();
-        $task = Task::create(
-            [
-                'name' => $request->name,
-                'todo_id' => $request->todo_id
-            ]
-        );
-
+        $this->taskRepository->createTask($request);
         return redirect()->route('todo.show', ['todo' => $request->todo_id]);
     }
 
@@ -69,15 +73,7 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        $request->validated();
-        $task->update(
-            [
-                'name' => $request->name,
-                'is_completed' => $request->is_completed,
-                'deadline' => $request->deadline
-            ]
-        );
-
+        $this->taskRepository->updateTask($request, $task);
         return redirect()->route('todo.show', ['todo' => $task->todo_id]);
     }
 
