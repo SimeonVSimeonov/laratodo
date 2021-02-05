@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\TodoTaskName;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UpdateTaskRequest extends FormRequest
 {
@@ -23,8 +25,11 @@ class UpdateTaskRequest extends FormRequest
      */
     public function rules()
     {
+        $todo_id = Request::get('todo_id');
+        $task_id = $this->task->id;
+
         return [
-            'name' => 'required|string|max:64|distinct',
+            'name' => ['required','string','max:64', new TodoTaskName($todo_id, $task_id)],
             'deadline' => 'required|date',
             'is_completed' => 'required|boolean',
         ];

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\TodoTaskName;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class StoreTaskRequest extends FormRequest
 {
@@ -23,8 +25,9 @@ class StoreTaskRequest extends FormRequest
      */
     public function rules()
     {
+        $todo_id = Request::get('todo_id');
         return [
-            'name' => 'required|string|max:64|distinct',
+            'name' => ['required','string','max:64', new TodoTaskName($todo_id, null)],
             'deadline' => 'required|date',
         ];
     }

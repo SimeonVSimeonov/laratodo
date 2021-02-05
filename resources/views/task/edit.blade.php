@@ -50,6 +50,10 @@
                                    id="deadline" name="deadline" value="{{$task->deadline->format('Y-m-d')}}">
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <input name="todo_id" type="hidden" value="{{$task->todo_id}}">
+                    </div>
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary">
