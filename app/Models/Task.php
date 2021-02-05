@@ -26,6 +26,9 @@ class Task extends Model
         'is_completed'
     ];
 
+    /**
+     * @var string[]
+     */
     protected $dates = [
         'deadline'
     ];

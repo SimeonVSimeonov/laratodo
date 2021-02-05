@@ -4,13 +4,12 @@
 namespace App\Services;
 
 
-use App\Models\Task;
 use App\Models\Todo;
 use App\Repositories\TaskRepository;
 use App\Repositories\TodoRepository;
-use App\Repositories\TodoRepositoryInterface;
 use DateTime;
 use DateTimeZone;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class TodoService implements TodoServiceInterface
@@ -35,6 +34,10 @@ class TodoService implements TodoServiceInterface
         $this->todoRepository = $todoRepository;
     }
 
+    /**
+     * @return mixed|void
+     * @throws Exception
+     */
     public function statusCheck()
     {
        $all_todo_tasks =  Todo::with('tasks')

@@ -17,6 +17,10 @@ class TodoRepository implements TodoRepositoryInterface
         return Todo::where('user_id', '=', Auth::id())->get();
     }
 
+    /**
+     * @param StoreTodoRequest $request
+     * @return mixed
+     */
     public function createTodo(StoreTodoRequest $request)
     {
         $request->validated();
@@ -28,7 +32,12 @@ class TodoRepository implements TodoRepositoryInterface
         );
     }
 
-    public function updateTodo(UpdateTodoRequest $request, Todo $todo)
+    /**
+     * @param UpdateTodoRequest $request
+     * @param Todo $todo
+     * @return bool|mixed
+     */
+    public function updateTodo(UpdateTodoRequest $request, Todo $todo): bool
     {
         $request->validated();
         return $todo->update(
@@ -39,7 +48,11 @@ class TodoRepository implements TodoRepositoryInterface
         );
     }
 
-    public function updateTodoStatus(Todo $todo)
+    /**
+     * @param Todo $todo
+     * @return bool|mixed
+     */
+    public function updateTodoStatus(Todo $todo): bool
     {
         return $todo->update([
             'is_completed' => true
