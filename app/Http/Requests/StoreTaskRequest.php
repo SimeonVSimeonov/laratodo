@@ -28,7 +28,7 @@ class StoreTaskRequest extends FormRequest
         $todo_id = Request::get('todo_id');
         return [
             'name' => ['required','string','max:64', new TodoTaskName($todo_id, null)],
-            'deadline' => 'required|date',
+            'deadline' => 'required|date|after:today',
         ];
     }
 }

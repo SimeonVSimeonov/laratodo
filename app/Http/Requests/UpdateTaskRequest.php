@@ -30,7 +30,7 @@ class UpdateTaskRequest extends FormRequest
 
         return [
             'name' => ['required','string','max:64', new TodoTaskName($todo_id, $task_id)],
-            'deadline' => 'required|date',
+            'deadline' => 'required|date|after:today',
             'is_completed' => 'required|boolean',
         ];
     }
