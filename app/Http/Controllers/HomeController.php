@@ -2,30 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Todo;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Repositories\TodoRepository;
+use Illuminate\Contracts\Support\Renderable;
 
 class HomeController extends Controller
 {
     /**
+     * @var TodoRepository
+     */
+    private $todoRepository;
+
+    /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param TodoRepository $todoRepository
      */
-    public function __construct()
+    public function __construct(TodoRepository $todoRepository)
     {
         $this->middleware('auth');
+        $this->todoRepository = $todoRepository;
     }
 
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function index()
     {
-        $todos = Todo::where('user_id', '=', Auth::id())->get();
+        $todos = $this->todoRepository->getAllTodoByUser();
         return view('home', ['todos' => $todos]);
     }
 }

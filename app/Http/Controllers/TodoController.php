@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
 use App\Models\Todo;
+use App\Repositories\TaskRepository;
+use App\Repositories\TodoRepository;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -12,13 +14,28 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
-    public function __construct()
+    /**
+     * @var TodoRepository
+     */
+    private $todoRepository;
+    /**
+     * @var TaskRepository
+     */
+    private $taskRepository;
+
+    /**
+     * TodoController constructor.
+     * @param TodoRepository $todoRepository
+     * @param TaskRepository $taskRepository
+     */
+    public function __construct(TodoRepository $todoRepository, TaskRepository $taskRepository)
     {
         $this->middleware('auth');
+        $this->todoRepository = $todoRepository;
+        $this->taskRepository = $taskRepository;
     }
 
     /**
@@ -39,14 +56,7 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
-        $request->validated();
-        $todo = Todo::create(
-            [
-                'name' => $request->name,
-                'user_id' => Auth::id(),
-            ]
-        );
-
+        $todo = $this->todoRepository->createTodo($request);
         return view('todo.show', ['todo' => $todo]);
     }
 
@@ -58,7 +68,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        $tasks = $todo->tasks()->get();
+        $tasks = $this->taskRepository->getTasksByTodoId($todo->id);
         return view('todo.show', ['todo' => $todo, 'tasks' => $tasks]);
     }
 
@@ -82,14 +92,7 @@ class TodoController extends Controller
      */
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
-        $request->validated();
-        $todo->update(
-            [
-                'name' => $request->name,
-                'is_completed' => $request->is_completed
-            ]
-        );
-
+        $this->todoRepository->updateTodo($request, $todo);
         return redirect('home');
     }
 
