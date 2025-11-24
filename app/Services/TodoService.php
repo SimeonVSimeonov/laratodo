@@ -48,8 +48,9 @@ class TodoService implements TodoServiceInterface
        foreach ($all_todo_tasks as $todo_task){
            if($todo_task->tasks()->get()->count() !== 0){
                foreach($todo_task->tasks()->get() as $task){
-                   $end = $task->deadline->format('Y-m-d H:i:s');
-                   $date_now = new DateTime("now", new DateTimeZone('Europe/Sofia'));
+                   $timezone = config('app.timezone');
+                   $end = $task->deadline->timezone($timezone)->format('Y-m-d H:i:s');
+                   $date_now = new DateTime('now', new DateTimeZone($timezone));
                    $format_now = $date_now->format('Y-m-d H:i:s');
 
                    if ($end < $format_now){
